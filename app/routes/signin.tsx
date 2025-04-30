@@ -1,17 +1,32 @@
 import type { Route } from "./+types/signin";
 import { redirect, useFetcher } from "react-router";
 
-export async function action() {
-  console.log("hello");
-  return redirect("/home");
+type SignupResponse = {
+  signInFailure: boolean;
+};
+
+// formでpostするとactionが呼ばれる
+export async function action({
+  request,
+}: Route.ActionArgs): Promise<SignupResponse | Response> {
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (email === "a@example.com" && password === "aaa") {
+    return redirect("/home");
+  }
+  return { signInFailure: true };
 }
 
-export default function Signup({ loaderData }: Route.ComponentProps) {
-  let fetcher = useFetcher();
-  console.log(loaderData);
+export default function Signup(_: Route.ComponentProps) {
+  let fetcher = useFetcher<SignupResponse>();
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <fetcher.Form method="post">
+        {fetcher.data?.signInFailure && (
+          <div className="text-red-700 mb-4">Something went wrong</div>
+        )}
         <p>
           <label htmlFor="email">email</label>
           <input
