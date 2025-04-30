@@ -6,3 +6,18 @@ test('has title', async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/sign-in/);
 });
+
+test('sign in', async ({ page }) => {
+  await page.goto('/');
+
+  // Fill in the form
+  await page.getByLabel('email').fill('a@example.com');
+  await page.getByLabel('password').fill('aaa');
+  await page.getByRole('button', { name: 'Sign In' }).click();
+
+  // Expect the URL to be /home
+  await expect(page).toHaveURL(/home/);
+
+  // Expect the page to contain "hello"
+  await expect(page.getByText('hello')).toBeVisible();
+});

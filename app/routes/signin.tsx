@@ -54,7 +54,7 @@ export default function Signup(_: Route.ComponentProps) {
           />
         </p>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit">Sign In</button>
       </fetcher.Form>
     </main>
   );
