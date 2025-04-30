@@ -5,6 +5,13 @@ type SignupResponse = {
   signInFailure: boolean;
 };
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "sign-in" },
+    { name: "description", content: "Please sign in" },
+  ];
+}
+
 // formでpostするとactionが呼ばれる
 export async function action({
   request,
