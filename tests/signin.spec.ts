@@ -21,3 +21,13 @@ test('sign in', async ({ page }) => {
   // Expect the page to contain "hello"
   await expect(page.getByText('hello')).toBeVisible();
 });
+
+test('network error', async ({ page }) => {
+  // Block api requests
+  await page.route(/_root\.data/, route => route.abort('internetdisconnected'));
+
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Sign In' }).click();
+
+  await expect(page.getByText('Oops!')).toBeVisible();
+});
