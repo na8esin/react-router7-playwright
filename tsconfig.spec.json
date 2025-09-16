@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "ES2022", // or `ESNext`
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "verbatimModuleSyntax": false,
+    "moduleResolution": "bundler",
+  }
+}

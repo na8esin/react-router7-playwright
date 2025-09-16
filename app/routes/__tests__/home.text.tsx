@@ -4,8 +4,8 @@ import { setupServer } from "msw/node";
 import { http, HttpResponse } from "msw";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Signup from "../signin";
 import { createRoutesStub } from "react-router";
+import Home from "../home";
 
 const server = setupServer(
   http.get("/greeting", () => {
@@ -21,8 +21,8 @@ test("loads and displays greeting", async () => {
   const Stub = createRoutesStub([
     {
       path: "/",
-      Component: Signup,
-      action() {}
+      Component: Home,
+
     },
   ]);
 
@@ -32,4 +32,6 @@ test("loads and displays greeting", async () => {
 
   await screen.findByRole("heading");
 
+  expect(screen.getByRole("heading")).toHaveTextContent("hello there");
+  expect(screen.getByRole("button")).toBeDisabled();
 });
