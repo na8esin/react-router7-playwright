@@ -20,6 +20,7 @@ export async function action({
   const email = formData.get("email");
   const password = formData.get("password");
 
+  // とりあえず、emailとpasswordはベタ書き
   if (email === "a@example.com" && password === "aaa") {
     return redirect("/home");
   }
